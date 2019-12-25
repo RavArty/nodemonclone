@@ -8,7 +8,14 @@ const fs = require('fs');
 program
   .version('0.0.1')
   .argument('[filename]', 'Name of file to execute')
-  .action(args => {
+  .action(async ({ filename }) => {
+    const name = filename || 'index.js';
+    try {
+      await fs.promises.access(name);
+    } catch (err) {
+      throw new Error(`Could not find the file ${name}`);
+    }
+
     const start = debounce(() => {
       console.log('STARTING USER PROGRAM');
     }, 100);
@@ -19,4 +26,4 @@ program
       .on('change', () => console.log('file changed'));
   });
 
-program.parse(process.env);
+program.parse(process.argv);
