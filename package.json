@@ -11,5 +11,8 @@
   "license": "ISC",
   "bin": {
     "nodemonclone": "index.js"
+  },
+  "dependencies": {
+    "chokidar": "^3.3.1"
   }
 }
